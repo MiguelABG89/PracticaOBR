@@ -9,7 +9,10 @@ public class main {
         String opcion = "";
         do {
             System.out.println("0. Salir");
-            System.out.println("1. Listar los clientes y el número de artículos que ha comprado");
+            System.out.println("1. Insertar nuevo Contacto");
+            System.out.println("2. Modificar Contacto");
+            System.out.println("3. Eliminar Contacto");
+            System.out.println("4. Funcion Telefono");
 
             opcion = libs.Leer.pedirCadena("Introduce una opción");
             switch (opcion) {

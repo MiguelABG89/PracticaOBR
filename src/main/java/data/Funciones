@@ -1,0 +1,60 @@
+create or replace FUNCTION FUN_VAR_TELEF (pv_nombre VARCHAR2) RETURN VARCHAR2 AS
+    vv_Telefono TELEFONO;
+BEGIN
+    SELECT  A.TELEF INTO vv_Telefono FROM AGENDA A WHERE A.NOMBRE = pv_nombre;
+    IF (vv_Telefono(1) is null ) THEN
+        RETURN ('No hay datos');
+    ELSE
+        RETURN ('El telefono de: '|| pv_nombre ||' es :  '||vv_Telefono(1));
+    end if;
+    EXCEPTION
+    WHEN NO_DATA_FOUND  THEN
+        RETURN ('NO se ha encontrado la fila');
+    WHEN TOO_MANY_ROWS   THEN
+        RETURN ('Se ha encontrado mas de una la fila con el nombre: '||pv_nombre);
+end;
+**************************************************************************************************************
+create FUNCTION FUN_VAR_CIUDAD (pv_nombre VARCHAR2) RETURN VARCHAR2 AS
+    vv_ciudad VARCHAR2(20);
+    BEGIN
+        SELECT  A.ALUM.DIREC.CIUDAD INTO vv_ciudad FROM ALUMNOS2 A WHERE A.ALUM.NOMBRE = pv_nombre;
+        IF (vv_ciudad is null ) THEN
+            vv_ciudad :='Sin datos';
+            RETURN (vv_ciudad);
+        ELSE
+            RETURN ('La ciudad es: '||vv_ciudad);
+        end if;
+end;
+**********************************************************************************************************************
+-- DECLARE pv_nombre VARCHAR2(20);
+--         vv_telefono VARCHAR2(9);
+-- BEGIN
+--     pv_nombre := 'Laia Garcia';
+--     SELECT  A.ALUM.DIREC.CIUDAD INTO vv_ciudad FROM ALUMNOS2 A WHERE A.ALUM.NOMBRE = pv_nombre;
+--     IF (vv_ciudad is null ) THEN
+--         vv_ciudad :='Sin datos';
+--         DBMS_OUTPUT.PUT_LINE(vv_ciudad);
+--     ELSE
+--         DBMS_OUTPUT.PUT_LINE('La ciudad es: '||vv_ciudad);
+--     end if;
+-- end;
+********************************************************************************************************************
+create FUNCTION FUN_VAR_TELEF (pv_nombre VARCHAR2) RETURN VARCHAR2 AS
+    vv_Telefono TELEFONO;
+BEGIN
+    SELECT  A.TELEF INTO vv_Telefono FROM AGENDA A WHERE A.NOMBRE = pv_nombre;
+    IF (vv_Telefono(1) is null ) THEN
+        RETURN ('No hay datos');
+    ELSE
+        RETURN ('El telefono de: '|| pv_nombre ||' es :  '||vv_Telefono(1));
+    end if;
+    EXCEPTION
+    WHEN NO_DATA_FOUND  THEN
+        RETURN ('NO se ha encontrado la fila');
+    WHEN TOO_MANY_ROWS   THEN
+        RETURN ('Se ha encontrado mas de una la fila con el nombre: '||pv_nombre);
+end;
+/
+
+docker run --name OracleOBRexamen -d -p 1523:1521 -e ORACLE_PASSWORD=admin -e ORACLE_DATABASE=examen gvenzl/oracle-xe
+docker exec OracleOBRexamen createAppUser MiguelBrand admin examen
